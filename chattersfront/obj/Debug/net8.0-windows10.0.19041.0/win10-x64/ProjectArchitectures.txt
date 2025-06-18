@@ -1,1 +1,0 @@
-C:\Users\domin\RiderProjects\chatters\chattersfront\chattersfront.csproj;x64
