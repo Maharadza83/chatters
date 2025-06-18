@@ -13,12 +13,12 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("chattersfront")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+1e5627e4a89353a2b8f89e8ee1abd3cfec70261c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+15d5a4554e38662c0354a321d0b5174162ef1a8a")]
 [assembly: System.Reflection.AssemblyProductAttribute("chattersfront")]
 [assembly: System.Reflection.AssemblyTitleAttribute("chattersfront")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Android34.0")]
-[assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Android21.0")]
+[assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Android23.0")]
 
 // Wygenerowane przez klasę WriteCodeFragment programu MSBuild.
 

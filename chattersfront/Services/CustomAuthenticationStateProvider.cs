@@ -5,7 +5,6 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace chattersfront.Services
 {
-    // Ta klasa nie ma żadnych zależności w konstruktorze, co jest najbezpieczniejsze.
     public class CustomAuthenticationStateProvider : AuthenticationStateProvider
     {
         private ClaimsPrincipal _currentUser = new ClaimsPrincipal(new ClaimsIdentity());

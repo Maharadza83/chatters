@@ -20,36 +20,35 @@ namespace chattersfront
             builder.Services.AddMauiBlazorWebView();
 
 #if DEBUG
-		    builder.Services.AddBlazorWebViewDeveloperTools();
-		    builder.Logging.AddDebug();
+            builder.Services.AddBlazorWebViewDeveloperTools();
+            builder.Logging.AddDebug();
 #endif
             
             // --- OSTATECZNA, POPRAWNA KONFIGURACJA USŁUG ---
 
             builder.Services.AddAuthorizationCore();
 
-            // HttpClient jest zawsze Singletonem.
             builder.Services.AddSingleton<HttpClient>(sp =>
             {
                 string baseAddress;
-                #if ANDROID
+#if ANDROID
                     baseAddress = "http://10.0.2.2:5244"; 
-                #else
-                    baseAddress = "http://127.0.0.1:5244";
-                #endif
+#else
+                baseAddress = "http://127.0.0.1:5244";
+#endif
                 
                 return new HttpClient { BaseAddress = new System.Uri(baseAddress) };
             });
 
-            // Usługi, które przechowują stan sesji użytkownika (jak stan logowania)
-            // MUSZĄ być Scoped, aby były zgodne z cyklem życia Blazora.
+            // Usługi związane z sesją użytkownika MUSZĄ być Scoped.
             builder.Services.AddScoped<CustomAuthenticationStateProvider>();
             builder.Services.AddScoped<AuthenticationStateProvider>(sp => 
                 sp.GetRequiredService<CustomAuthenticationStateProvider>());
             
-            // Usługi, które zależą od stanu sesji, również muszą być Scoped.
             builder.Services.AddScoped<AuthService>();
-            builder.Services.AddScoped<ChatService>();
+
+            // Usługa ChatService, która trzyma długotrwałe połączenie, może być Singletonem.
+            builder.Services.AddSingleton<ChatService>();
             
             builder.Services.AddSingleton<WeatherForecastService>();
 

@@ -10,7 +10,6 @@ namespace chattersfront.Services
         private readonly HttpClient _httpClient;
         private readonly CustomAuthenticationStateProvider _authStateProvider;
 
-        // Konstruktor wstrzykuje CustomAuthenticationStateProvider bezpośrednio.
         public AuthService(HttpClient httpClient, CustomAuthenticationStateProvider authStateProvider)
         {
             _httpClient = httpClient;
@@ -19,10 +18,11 @@ namespace chattersfront.Services
 
         public async Task<LoginResponse?> Login(LoginRequest loginRequest)
         {
-            var response = await _httpClient.PostAsJsonAsync("api/auth/login", loginRequest);
-
-            if (response.IsSuccessStatusCode)
+            try
             {
+                var response = await _httpClient.PostAsJsonAsync("api/auth/login", loginRequest);
+                if (!response.IsSuccessStatusCode) return null;
+
                 var loginResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
                 if (loginResponse != null && !string.IsNullOrEmpty(loginResponse.Token))
                 {
@@ -30,7 +30,10 @@ namespace chattersfront.Services
                 }
                 return loginResponse;
             }
-            return null;
+            catch (System.Exception)
+            {
+                return null;
+            }
         }
 
         public async Task<bool> Register(RegisterRequest registerRequest)
