@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "RWiukMr1Q9+DbeOgsPr8GU3Zi3rzUXZOK+tdF+PoBew=",
+  "Source": "chattersfront",
+  "BasePath": "/",
+  "Mode": "Root",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "chattersfront\\wwwroot",
+      "Source": "chattersfront",
+      "ContentRoot": "C:\\Users\\domin\\RiderProjects\\chatters\\chattersfront\\wwwroot\\",
+      "BasePath": "/",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}

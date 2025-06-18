@@ -1,0 +1,68 @@
+@page "/login"
+@layout PublicLayout
+
+@inject AuthService AuthService
+@inject CustomAuthenticationStateProvider AuthStateProvider
+@inject NavigationManager Navigation
+
+<h3>Logowanie i Rejestracja</h3>
+
+@if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <div style="color: red;">@ErrorMessage</div>
+}
+
+<div style="margin-bottom: 20px;">
+    <h4>Logowanie</h4>
+    <input type="email" @bind="LoginRequest.Email" placeholder="Email" /><br />
+    <input type="password" @bind="LoginRequest.Password" placeholder="Hasło" /><br />
+    <button @onclick="HandleLogin">Zaloguj</button>
+</div>
+
+<div>
+    <h4>Rejestracja</h4>
+    <input type="email" @bind="RegisterRequest.Email" placeholder="Email" /><br />
+    <input type="password" @bind="RegisterRequest.Password" placeholder="Hasło" /><br />
+    <input type="text" @bind="RegisterRequest.FullName" placeholder="Imię i Nazwisko" /><br />
+    <input type="text" @bind="RegisterRequest.OrganizationName" placeholder="Nazwa Organizacji" /><br />
+    <input type="text" @bind="RegisterRequest.ProjectName" placeholder="Nazwa Projektu" /><br />
+    <button @onclick="HandleRegister">Zarejestruj</button>
+</div>
+
+@code {
+    private Models.LoginRequest LoginRequest { get; set; } = new Models.LoginRequest();
+    private Models.RegisterRequest RegisterRequest { get; set; } = new Models.RegisterRequest();
+    private string ErrorMessage { get; set; } = string.Empty;
+
+    private async Task HandleLogin()
+    {
+        ErrorMessage = string.Empty;
+        var response = await AuthService.Login(LoginRequest);
+        if (response != null && !string.IsNullOrEmpty(response.Token))
+        {
+            AuthStateProvider.MarkUserAsAuthenticated(response.Token);
+            Navigation.NavigateTo("/chat"); // Przekieruj do strony czatu po zalogowaniu
+        }
+        else
+        {
+            ErrorMessage = "Logowanie nieudane. Sprawdź dane.";
+        }
+    }
+
+    private async Task HandleRegister()
+    {
+        ErrorMessage = string.Empty;
+        var success = await AuthService.Register(RegisterRequest);
+        if (success)
+        {
+            // Po rejestracji spróbuj automatycznie zalogować
+            LoginRequest.Email = RegisterRequest.Email;
+            LoginRequest.Password = RegisterRequest.Password;
+            await HandleLogin();
+        }
+        else
+        {
+            ErrorMessage = "Rejestracja nieudana. Użytkownik lub organizacja/projekt może już istnieć, lub problem z hasłem.";
+        }
+    }
+}
