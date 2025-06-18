@@ -1,9 +1,8 @@
 @page "/login"
-@layout PublicLayout
-
 @inject AuthService AuthService
 @inject CustomAuthenticationStateProvider AuthStateProvider
 @inject NavigationManager Navigation
+@using chattersfront.Models
 
 <h3>Logowanie i Rejestracja</h3>
 
@@ -30,8 +29,8 @@
 </div>
 
 @code {
-    private Models.LoginRequest LoginRequest { get; set; } = new Models.LoginRequest();
-    private Models.RegisterRequest RegisterRequest { get; set; } = new Models.RegisterRequest();
+    private LoginRequest LoginRequest { get; set; } = new LoginRequest();
+    private RegisterRequest RegisterRequest { get; set; } = new RegisterRequest();
     private string ErrorMessage { get; set; } = string.Empty;
 
     private async Task HandleLogin()
@@ -40,7 +39,7 @@
         var response = await AuthService.Login(LoginRequest);
         if (response != null && !string.IsNullOrEmpty(response.Token))
         {
-            AuthStateProvider.MarkUserAsAuthenticated(response.Token);
+            // Nie musimy już nic robić, AuthService sam powiadomi providera.
             Navigation.NavigateTo("/chat"); // Przekieruj do strony czatu po zalogowaniu
         }
         else
@@ -55,14 +54,14 @@
         var success = await AuthService.Register(RegisterRequest);
         if (success)
         {
-            // Po rejestracji spróbuj automatycznie zalogować
+            // Po udanej rejestracji, spróbuj automatycznie zalogować.
             LoginRequest.Email = RegisterRequest.Email;
             LoginRequest.Password = RegisterRequest.Password;
             await HandleLogin();
         }
         else
         {
-            ErrorMessage = "Rejestracja nieudana. Użytkownik lub organizacja/projekt może już istnieć, lub problem z hasłem.";
+            ErrorMessage = "Rejestracja nieudana. Sprawdź dane.";
         }
     }
 }

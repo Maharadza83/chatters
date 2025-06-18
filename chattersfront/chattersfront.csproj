@@ -1,29 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <!-- Standardowa definicja platform dla .NET 8 MAUI -->
         <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
         <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
-
-        <!-- Typ aplikacji, wymagany dla MAUI -->
         <OutputType>Exe</OutputType>
         <RootNamespace>chattersfront</RootNamespace>
         <UseMaui>true</UseMaui>
         <SingleProject>true</SingleProject>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable> <!-- POPRAWKA: Włącza obsługę typów null w całym projekcie -->
-
-        <!-- Display name -->
+        <Nullable>enable</Nullable>
         <ApplicationTitle>chattersfront</ApplicationTitle>
-
-        <!-- App Identifier -->
         <ApplicationId>com.companyname.chattersfront</ApplicationId>
-
-        <!-- Versions -->
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
         <ApplicationVersion>1</ApplicationVersion>
-
-        <!-- Minimalne wersje systemów operacyjnych dla .NET 8 MAUI -->
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
@@ -32,24 +21,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <!-- App Icon -->
         <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
-
-        <!-- Splash Screen -->
         <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
-
-        <!-- Images -->
         <MauiImage Include="Resources\Images\*" />
-
-        <!-- Custom Fonts -->
         <MauiFont Include="Resources\Fonts\*" />
-
-        <!-- Raw Assets -->
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
     </ItemGroup>
 
     <ItemGroup>
-        <!-- Ujednolicone i poprawne referencje do pakietów dla .NET 8 -->
         <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.6" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.70" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
@@ -58,16 +37,6 @@
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.70" />
         <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.6" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.6.0" />
-    </ItemGroup>
-    <!-- usuń wszystkie wwwroot z Content/AndroidAsset -->
-    <ItemGroup>
-        <Content Remove="wwwroot\**\*.*" />
-        <AndroidAsset Remove="wwwroot\**\*.*" />
-    </ItemGroup>
-
-    <!-- włącz je jako MauiAsset -->
-    <ItemGroup>
-        <MauiAsset Include="wwwroot\**\*.*" />
     </ItemGroup>
 
 </Project>

@@ -196,6 +196,7 @@ C:\Users\domin\RiderProjects\chatters\chattersfront\obj\Debug\net8.0-windows10.0
 C:\Users\domin\RiderProjects\chatters\chattersfront\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\chattersfront.AssemblyInfoInputs.cache
 C:\Users\domin\RiderProjects\chatters\chattersfront\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\chattersfront.AssemblyInfo.cs
 C:\Users\domin\RiderProjects\chatters\chattersfront\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\chattersfront.csproj.CoreCompileInputs.cache
+C:\Users\domin\RiderProjects\chatters\chattersfront\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\chattersfront.sourcelink.json
 C:\Users\domin\RiderProjects\chatters\chattersfront\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\XamlC.stamp
 C:\Users\domin\RiderProjects\chatters\chattersfront\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\chatters.FA5448B5.Up2Date
 C:\Users\domin\RiderProjects\chatters\chattersfront\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\chattersfront.dll

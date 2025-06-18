@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("chatters")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e5627e4a89353a2b8f89e8ee1abd3cfec70261c")]
 [assembly: System.Reflection.AssemblyProductAttribute("chatters")]
 [assembly: System.Reflection.AssemblyTitleAttribute("chatters")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

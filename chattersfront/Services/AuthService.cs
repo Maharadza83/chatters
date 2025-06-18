@@ -1,62 +1,47 @@
-// -----------------------------------------------------------------------------
-// Plik: chattersfront/Services/AuthService.cs
-// Opis: Usługa do komunikacji z endpointami uwierzytelniania backendu (rejestracja, logowanie).
-// -----------------------------------------------------------------------------
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using chattersfront.Models; // Zmienione z ChatApp.Frontend.Models
-using System; // Dodane dla Guid
-using System.Collections.Generic; // Dodane dla List
+using chattersfront.Models;
 
 namespace chattersfront.Services
 {
     public class AuthService
     {
         private readonly HttpClient _httpClient;
+        private readonly CustomAuthenticationStateProvider _authStateProvider;
 
-        public AuthService(IHttpClientFactory httpClientFactory)
+        // Konstruktor wstrzykuje CustomAuthenticationStateProvider bezpośrednio.
+        public AuthService(HttpClient httpClient, CustomAuthenticationStateProvider authStateProvider)
         {
-            _httpClient = httpClientFactory.CreateClient("BackendApi");
+            _httpClient = httpClient;
+            _authStateProvider = authStateProvider;
         }
 
-        public async Task<LoginResponse?> Login(LoginRequest request)
+        public async Task<LoginResponse?> Login(LoginRequest loginRequest)
         {
-            try
+            var response = await _httpClient.PostAsJsonAsync("api/auth/login", loginRequest);
+
+            if (response.IsSuccessStatusCode)
             {
-                var response = await _httpClient.PostAsJsonAsync("api/Auth/login", request);
-                if (response.IsSuccessStatusCode)
+                var loginResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
+                if (loginResponse != null && !string.IsNullOrEmpty(loginResponse.Token))
                 {
-                    return await response.Content.ReadFromJsonAsync<LoginResponse>();
+                    _authStateProvider.MarkUserAsAuthenticated(loginResponse.Token);
                 }
-                // Możesz dodać logowanie błędów lub zwracać bardziej szczegółowe informacje
-                Console.WriteLine($"Login failed: {response.StatusCode} {await response.Content.ReadAsStringAsync()}");
-                return null;
+                return loginResponse;
             }
-            catch (HttpRequestException ex)
-            {
-                // Obsługa błędów sieciowych
-                Console.WriteLine($"Błąd sieci podczas logowania: {ex.Message}");
-                return null;
-            }
+            return null;
         }
 
-        public async Task<bool> Register(RegisterRequest request)
+        public async Task<bool> Register(RegisterRequest registerRequest)
         {
-            try
-            {
-                var response = await _httpClient.PostAsJsonAsync("api/Auth/register", request);
-                if (!response.IsSuccessStatusCode)
-                {
-                    Console.WriteLine($"Register failed: {response.StatusCode} {await response.Content.ReadAsStringAsync()}");
-                }
-                return response.IsSuccessStatusCode;
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine($"Błąd sieci podczas rejestracji: {ex.Message}");
-                return false;
-            }
+            var response = await _httpClient.PostAsJsonAsync("api/auth/register", registerRequest);
+            return response.IsSuccessStatusCode;
+        }
+
+        public void Logout()
+        {
+            _authStateProvider.MarkUserAsLoggedOut();
         }
     }
 }

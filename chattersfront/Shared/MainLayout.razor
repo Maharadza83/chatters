@@ -1,5 +1,4 @@
 ﻿@inherits LayoutComponentBase
-@using Microsoft.AspNetCore.Components.Authorization
 
 <div class="page">
     <div class="sidebar">
@@ -12,14 +11,9 @@
         </div>
 
         <article class="content px-4">
-            <AuthorizeView>
-                <Authorized>
-                    @Body
-                </Authorized>
-                <NotAuthorized>
-                    <p>Musisz się zalogować, aby zobaczyć tę stronę.</p>
-                </NotAuthorized>
-            </AuthorizeView>
+            @* Teraz ten layout po prostu wyświetla zawartość strony.
+               Za autoryzację i przekierowania odpowiada router w Main.razor. *@
+            @Body
         </article>
     </main>
 </div>

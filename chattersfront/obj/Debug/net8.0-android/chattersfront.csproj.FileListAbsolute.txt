@@ -124,6 +124,7 @@ C:\Users\domin\RiderProjects\chatters\chattersfront\obj\Debug\net8.0-android\cha
 C:\Users\domin\RiderProjects\chatters\chattersfront\obj\Debug\net8.0-android\chattersfront.AssemblyInfoInputs.cache
 C:\Users\domin\RiderProjects\chatters\chattersfront\obj\Debug\net8.0-android\chattersfront.AssemblyInfo.cs
 C:\Users\domin\RiderProjects\chatters\chattersfront\obj\Debug\net8.0-android\chattersfront.csproj.CoreCompileInputs.cache
+C:\Users\domin\RiderProjects\chatters\chattersfront\obj\Debug\net8.0-android\chattersfront.sourcelink.json
 C:\Users\domin\RiderProjects\chatters\chattersfront\obj\Debug\net8.0-android\XamlC.stamp
 C:\Users\domin\RiderProjects\chatters\chattersfront\obj\Debug\net8.0-android\chattersfront.dll
 C:\Users\domin\RiderProjects\chatters\chattersfront\obj\Debug\net8.0-android\chattersfront.pdb

@@ -113,6 +113,7 @@ C:\Users\domin\RiderProjects\chatters\chatters\obj\Debug\net8.0\chatters.Assembl
 C:\Users\domin\RiderProjects\chatters\chatters\obj\Debug\net8.0\chatters.csproj.CoreCompileInputs.cache
 C:\Users\domin\RiderProjects\chatters\chatters\obj\Debug\net8.0\chatters.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\domin\RiderProjects\chatters\chatters\obj\Debug\net8.0\chatters.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\domin\RiderProjects\chatters\chatters\obj\Debug\net8.0\chatters.sourcelink.json
 C:\Users\domin\RiderProjects\chatters\chatters\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\domin\RiderProjects\chatters\chatters\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\domin\RiderProjects\chatters\chatters\obj\Debug\net8.0\staticwebassets\msbuild.chatters.Microsoft.AspNetCore.StaticWebAssets.props
