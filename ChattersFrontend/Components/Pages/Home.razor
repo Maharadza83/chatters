@@ -1,0 +1,137 @@
+﻿@page "/"
+
+<div class="auth-container">
+    <div class="auth-form">
+
+        @if (isLoginView)
+        {
+            <h2>Logowanie</h2>
+            <EditForm Model="@loginModel" OnValidSubmit="@HandleLogin">
+                <DataAnnotationsValidator />
+
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <InputText id="loginEmail" class="form-control" @bind-Value="loginModel.Email" />
+                    <ValidationMessage For="@(() => loginModel.Email)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Hasło</label>
+                    <InputText id="loginPassword" type="password" class="form-control" @bind-Value="loginModel.Password" />
+                    <ValidationMessage For="@(() => loginModel.Password)" />
+                </div>
+
+                @if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    <div class="alert alert-danger mb-3">@errorMessage</div>
+                }
+
+                <button type="submit" class="btn btn-primary" disabled="@isProcessing">
+                    @if (isProcessing)
+                    {
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span> Logowanie...</span>
+                    }
+                    else
+                    {
+                        <span>Zaloguj się</span>
+                    }
+                </button>
+            </EditForm>
+
+            <div class="switch-auth">
+                Nie masz konta? <button class="btn-link" @onclick="() => isLoginView = false">Zarejestruj się</button>
+            </div>
+        }
+        else
+        {
+            <h2>Rejestracja</h2>
+            <EditForm Model="@registerModel" OnValidSubmit="@HandleRegister">
+                <DataAnnotationsValidator />
+
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <InputText id="registerEmail" class="form-control" @bind-Value="registerModel.Email" />
+                    <ValidationMessage For="@(() => registerModel.Email)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="registerPassword">Hasło</label>
+                    <InputText id="registerPassword" type="password" class="form-control" @bind-Value="registerModel.Password" />
+                    <ValidationMessage For="@(() => registerModel.Password)" />
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Potwierdź Hasło</label>
+                    <InputText id="confirmPassword" type="password" class="form-control" @bind-Value="registerModel.ConfirmPassword" />
+                    <ValidationMessage For="@(() => registerModel.ConfirmPassword)" />
+                </div>
+
+                @if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    <div class="alert alert-danger mb-3">@errorMessage</div>
+                }
+
+                <button type="submit" class="btn btn-primary" disabled="@isProcessing">
+                     @if (isProcessing)
+                    {
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span> Rejestrowanie...</span>
+                    }
+                    else
+                    {
+                        <span>Zarejestruj się</span>
+                    }
+                </button>
+            </EditForm>
+
+            <div class="switch-auth">
+                Masz już konto? <button class="btn-link" @onclick="() => isLoginView = true">Zaloguj się</button>
+            </div>
+        }
+    </div>
+</div>
+
+
+@code {
+    private bool isLoginView = true;
+    private bool isProcessing = false;
+    private string? errorMessage; // <-- ZMIANA TUTAJ (string?)
+
+    private LoginModel loginModel = new();
+    private RegisterModel registerModel = new();
+
+    private async Task HandleLogin()
+    {
+        isProcessing = true;
+        errorMessage = null; // Teraz to jest dozwolone
+        Console.WriteLine($"Próba logowania dla: {loginModel.Email}");
+
+        await Task.Delay(1500);
+
+        if (loginModel.Email == "test@example.com" && loginModel.Password == "password123")
+        {
+            Console.WriteLine("Logowanie udane!");
+        }
+        else
+        {
+            errorMessage = "Nieprawidłowy email lub hasło.";
+        }
+
+        isProcessing = false;
+    }
+
+    private async Task HandleRegister()
+    {
+        isProcessing = true;
+        errorMessage = null; // I tutaj też
+        Console.WriteLine($"Próba rejestracji dla: {registerModel.Email}");
+
+        await Task.Delay(1500);
+
+        Console.WriteLine("Rejestracja udana!");
+        isLoginView = true;
+        isProcessing = false;
+        registerModel = new();
+    }
+}
